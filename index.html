@@ -46,6 +46,33 @@
                 </button>
             </div>
         </div>
+        <div class="falling-dots"></div>
     </div>
+    <script>
+        const container = document.querySelector('.falling-dots');
+
+        function createDot() {
+            const dot = document.createElement('div');
+            const minOpacity = 0.3;
+            dot.classList.add('dot');
+            dot.style.left = `${Math.random() * 100}vw`;
+            dot.style.top = `-10px`;
+            dot.style.animationDuration = `${20 + Math.random() * 4}s`;
+            dot.style.opacity = Math.random() * (1 - minOpacity) + minOpacity;
+            container.appendChild(dot);
+
+            const checkDotPosition = setInterval(() => {
+                const rect = dot.getBoundingClientRect();
+                if (rect.top > window.innerHeight) {
+                    dot.remove();
+                    clearInterval(checkDotPosition);
+                }
+            }, 1000); 
+        }
+
+        setInterval(createDot, 3000);
+
+
+    </script>
 </body>
 </html>
